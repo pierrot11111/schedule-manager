@@ -7,10 +7,6 @@ namespace pr1
 {
     public partial class Form1 : Form
     {
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // Можна залишити порожнім
-        }
         // Створюємо репозиторій для роботи з даними (ПР №3)
         private readonly LessonRepository _repository = new LessonRepository();
 

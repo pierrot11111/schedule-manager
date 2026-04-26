@@ -51,6 +51,7 @@
             dgvLessons.Name = "dgvLessons";
             dgvLessons.Size = new Size(603, 150);
             dgvLessons.TabIndex = 0;
+            dgvLessons.CellFormatting += dgvLessons_CellFormatting;
             // 
             // txtSubjectName
             // 
@@ -163,7 +164,6 @@
             Controls.Add(dgvLessons);
             Name = "Form1";
             Text = "KPI Schedule Manager - Group IC-51";
-            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dgvLessons).EndInit();
             ResumeLayout(false);
             PerformLayout();
