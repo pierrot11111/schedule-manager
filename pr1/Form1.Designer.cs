@@ -36,7 +36,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Name = "Form1";
-            Text = "KPI Schedule Manager - Group 51";
+            Text = "KPI Schedule Manager - Group IC-51";
             Load += Form1_Load;
             ResumeLayout(false);
         }
