@@ -13,10 +13,13 @@ namespace pr1
         public Form1()
         {
             InitializeComponent();
-            SetupGrid(); // Налаштовуємо стовпці таблиці (ПР №4)
+            SetupGrid();
 
-            // Заповнюємо випадаючий список типами занять із твого Enum (ПР №4)
+            // Заповнюємо випадаючий список
             cmbLessonType.Items.AddRange(Enum.GetNames(typeof(LessonType)));
+
+            // ОНОВЛЮЄМО ТАБЛИЦЮ ВІДРАЗУ ПРИ ЗАПУСКУ
+            UpdateGrid();
         }
 
         // Налаштування зовнішнього вигляду таблиці
