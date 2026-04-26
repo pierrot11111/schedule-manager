@@ -8,10 +8,8 @@ namespace pr1
 {
     public class Teacher
     {
-        // Приватне поле (інкапсуляція)
         private string _fullName;
 
-        // Публічна властивість
         public string FullName
         {
             get => _fullName;
@@ -20,7 +18,7 @@ namespace pr1
 
         public string Email { get; set; }
 
-        // Конструктор для ініціалізації
+        // Цей конструктор МАЄ БУТИ ТУТ
         public Teacher(string fullName, string email)
         {
             _fullName = fullName;

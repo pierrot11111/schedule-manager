@@ -9,8 +9,9 @@ namespace pr1
     public class Subject
     {
         public string Name { get; set; }
-        public Teacher Lecturer { get; set; } // Об'єкт іншого класу як поле
+        public Teacher Lecturer { get; set; }
 
+        // Конструктор має приймати саме ці 2 аргументи
         public Subject(string name, Teacher lecturer)
         {
             Name = name;
