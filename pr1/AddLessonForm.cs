@@ -14,9 +14,11 @@ namespace pr1
             InitializeComponent();
             _repo = repository;
 
-            cmbLessonType.Items.AddRange(Enum.GetNames(typeof(LessonType)));
+            cmbLessonType.Items.Clear();
+            cmbLessonType.Items.AddRange(new object[] { "Лекція", "Практика", "Лабораторна" });
+            cmbLessonType.SelectedIndex = 0;
 
-            // Налаштовуємо ComboBox для тижнів
+            cmbWeek.Items.Clear();
             cmbWeek.Items.AddRange(new string[] { "Кожен тиждень", "1 тиждень", "2 тиждень" });
             cmbWeek.SelectedIndex = 0;
 
@@ -24,26 +26,11 @@ namespace pr1
             UpdateMiniGrid();
         }
 
-        // Авто-визначення тижня при зміні дати
         private void dtpLessonTime_ValueChanged(object sender, EventArgs e)
         {
             var cal = System.Globalization.CultureInfo.CurrentCulture.Calendar;
-
-            // Отримуємо номер тижня року
-            int weekOfYear = cal.GetWeekOfYear(
-                dtpLessonTime.Value,
-                System.Globalization.CalendarWeekRule.FirstFourDayWeek,
-                DayOfWeek.Monday);
-
-            // Логіка: непарний тиждень року = 1 тиждень, парний = 2 тиждень
-            if (weekOfYear % 2 != 0)
-            {
-                cmbWeek.SelectedIndex = 1; // "1 тиждень" у твоєму списку
-            }
-            else
-            {
-                cmbWeek.SelectedIndex = 2; // "2 тиждень" у твоєму списку
-            }
+            int weekOfYear = cal.GetWeekOfYear(dtpLessonTime.Value, System.Globalization.CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            cmbWeek.SelectedIndex = (weekOfYear % 2 != 0) ? 1 : 2;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -51,23 +38,24 @@ namespace pr1
             errorProvider.Clear();
             bool hasError = false;
 
-            if (string.IsNullOrWhiteSpace(txtSubjectName.Text))
-            {
-                errorProvider.SetError(txtSubjectName, "Назва обов'язкова!");
-                hasError = true;
-            }
-
+            if (string.IsNullOrWhiteSpace(txtSubjectName.Text)) { errorProvider.SetError(txtSubjectName, "Порожньо!"); hasError = true; }
+            if (string.IsNullOrWhiteSpace(txtTeacherName.Text)) { errorProvider.SetError(txtTeacherName, "Порожньо!"); hasError = true; }
             if (hasError) return;
 
             var teacher = new Teacher(txtTeacherName.Text, "");
             var subject = new Subject(txtSubjectName.Text, teacher);
-            Enum.TryParse(cmbLessonType.Text, out LessonType type);
 
-            int weekNum = cmbWeek.SelectedIndex; // 0, 1 або 2
+            LessonType type = cmbLessonType.SelectedIndex switch
+            {
+                1 => LessonType.Практика,
+                2 => LessonType.Лабораторна,
+                _ => LessonType.Лекція
+            };
+
+            int weekNum = cmbWeek.SelectedIndex;
 
             var newLesson = new Lesson(dtpLessonTime.Value, subject, type, txtLink.Text, weekNum);
             _repo.Add(newLesson);
-
             UpdateMiniGrid();
             txtSubjectName.Clear();
         }
@@ -76,12 +64,11 @@ namespace pr1
         {
             dgvAllLessons.AutoGenerateColumns = false;
             dgvAllLessons.Columns.Clear();
-            dgvAllLessons.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Time", HeaderText = "Дата/Час", Width = 110 });
+            dgvAllLessons.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Time", HeaderText = "Час", Width = 110 });
             dgvAllLessons.Columns.Add(new DataGridViewTextBoxColumn { Name = "SubjCol", HeaderText = "Предмет", Width = 120 });
             dgvAllLessons.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "WeekNumber", HeaderText = "Т", Width = 30 });
 
-            dgvAllLessons.CellFormatting += (s, e) =>
-            {
+            dgvAllLessons.CellFormatting += (s, e) => {
                 if (dgvAllLessons.Columns[e.ColumnIndex].Name == "SubjCol" && dgvAllLessons.Rows[e.RowIndex].DataBoundItem is Lesson l)
                     e.Value = l.CurrentSubject?.Name;
             };
@@ -93,14 +80,12 @@ namespace pr1
         {
             if (dgvAllLessons.CurrentRow?.DataBoundItem is Lesson selected)
             {
-                _repo.Delete(selected);
-                UpdateMiniGrid();
+                if (MessageBox.Show("Видалити?", "Підтвердження", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    _repo.Delete(selected);
+                    UpdateMiniGrid();
+                }
             }
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

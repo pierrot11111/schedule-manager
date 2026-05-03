@@ -31,7 +31,6 @@ namespace pr1
             return false;
         }
 
-        // Автоматичне сортування за часом (LINQ OrderBy)
         public IEnumerable<Lesson> GetAll() => _lessons.OrderBy(l => l.Time).ToList();
 
         public Lesson? Find(Predicate<Lesson> predicate) => _lessons.Find(predicate);
@@ -44,7 +43,7 @@ namespace pr1
                 string json = JsonConvert.SerializeObject(_lessons, settings);
                 File.WriteAllText(_filePath, json);
             }
-            catch (IOException ex) { System.Windows.Forms.MessageBox.Show($"Помилка запису: {ex.Message}"); }
+            catch (IOException ex) { System.Windows.Forms.MessageBox.Show(ex.Message); }
         }
 
         private void LoadData()

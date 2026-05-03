@@ -194,7 +194,6 @@
             label7.Size = new Size(58, 15);
             label7.TabIndex = 16;
             label7.Text = "Тиждень:";
-            label7.Click += label7_Click;
             // 
             // AddLessonForm
             // 
