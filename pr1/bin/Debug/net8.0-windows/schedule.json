@@ -3,21 +3,6 @@
   "$values": [
     {
       "$type": "pr1.Lesson, pr1",
-      "Time": "2026-04-27T00:15:31.6935525+03:00",
-      "CurrentSubject": {
-        "$type": "pr1.Subject, pr1",
-        "Name": "фффф",
-        "Lecturer": {
-          "$type": "pr1.Teacher, pr1",
-          "FullName": "іііііі",
-          "Email": ""
-        }
-      },
-      "Type": 2,
-      "ZoomLink": "ввввв"
-    },
-    {
-      "$type": "pr1.Lesson, pr1",
       "Time": "2026-04-27T00:15:37.9582069+03:00",
       "CurrentSubject": {
         "$type": "pr1.Subject, pr1",
@@ -30,6 +15,66 @@
       },
       "Type": 0,
       "ZoomLink": "иии"
+    },
+    {
+      "$type": "pr1.Lesson, pr1",
+      "Time": "2026-05-03T22:54:43.271446+03:00",
+      "CurrentSubject": {
+        "$type": "pr1.Subject, pr1",
+        "Name": "івіваіваіва",
+        "Lecturer": {
+          "$type": "pr1.Teacher, pr1",
+          "FullName": "іваіваіваів",
+          "Email": ""
+        }
+      },
+      "Type": 2,
+      "ZoomLink": "іваіііі"
+    },
+    {
+      "$type": "pr1.Lesson, pr1",
+      "Time": "2026-05-13T23:18:35.933",
+      "CurrentSubject": {
+        "$type": "pr1.Subject, pr1",
+        "Name": "віпівапвап",
+        "Lecturer": {
+          "$type": "pr1.Teacher, pr1",
+          "FullName": "вапвапвап",
+          "Email": ""
+        }
+      },
+      "Type": 1,
+      "ZoomLink": "вапвапвапвап"
+    },
+    {
+      "$type": "pr1.Lesson, pr1",
+      "Time": "2026-05-14T23:30:45.939",
+      "CurrentSubject": {
+        "$type": "pr1.Subject, pr1",
+        "Name": "івівуаівів",
+        "Lecturer": {
+          "$type": "pr1.Teacher, pr1",
+          "FullName": "аіваіваіва",
+          "Email": ""
+        }
+      },
+      "Type": 2,
+      "ZoomLink": "іваіваіваі"
+    },
+    {
+      "$type": "pr1.Lesson, pr1",
+      "Time": "2026-05-29T00:21:48.733",
+      "CurrentSubject": {
+        "$type": "pr1.Subject, pr1",
+        "Name": "прорп",
+        "Lecturer": {
+          "$type": "pr1.Teacher, pr1",
+          "FullName": "смчсм",
+          "Email": ""
+        }
+      },
+      "Type": 2,
+      "ZoomLink": "чмчсмч"
     }
   ]
 }

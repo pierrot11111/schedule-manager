@@ -31,19 +31,20 @@ namespace pr1
             return false;
         }
 
-        // Рефакторинг: повертаємо відсортований список через LINQ
+        // Автоматичне сортування за часом (LINQ OrderBy)
         public IEnumerable<Lesson> GetAll() => _lessons.OrderBy(l => l.Time).ToList();
 
-        public Lesson Find(Predicate<Lesson> predicate) => _lessons.Find(predicate);
+        public Lesson? Find(Predicate<Lesson> predicate) => _lessons.Find(predicate);
 
         private void SaveData()
         {
             try
             {
                 var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented };
-                File.WriteAllText(_filePath, JsonConvert.SerializeObject(_lessons, settings));
+                string json = JsonConvert.SerializeObject(_lessons, settings);
+                File.WriteAllText(_filePath, json);
             }
-            catch (Exception ex) { System.Windows.Forms.MessageBox.Show("Помилка збереження: " + ex.Message); }
+            catch (IOException ex) { System.Windows.Forms.MessageBox.Show($"Помилка запису: {ex.Message}"); }
         }
 
         private void LoadData()
@@ -51,8 +52,9 @@ namespace pr1
             if (!File.Exists(_filePath)) return;
             try
             {
+                string json = File.ReadAllText(_filePath);
                 var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-                _lessons = JsonConvert.DeserializeObject<List<Lesson>>(File.ReadAllText(_filePath), settings) ?? new List<Lesson>();
+                _lessons = JsonConvert.DeserializeObject<List<Lesson>>(json, settings) ?? new List<Lesson>();
             }
             catch { _lessons = new List<Lesson>(); }
         }

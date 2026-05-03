@@ -40,6 +40,9 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
+            dgvAllLessons = new DataGridView();
+            btnDeleteInForm = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvAllLessons).BeginInit();
             SuspendLayout();
             // 
             // txtSubjectName
@@ -87,6 +90,7 @@
             btnSave.TabIndex = 5;
             btnSave.Text = "Зберегти";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnClose
             // 
@@ -106,7 +110,6 @@
             label1.Size = new Size(97, 15);
             label1.TabIndex = 7;
             label1.Text = "Назва предмета:";
-            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -125,7 +128,6 @@
             label3.Size = new Size(74, 15);
             label3.TabIndex = 9;
             label3.Text = "Тип заняття:";
-            label3.Click += label3_Click;
             // 
             // label4
             // 
@@ -145,11 +147,31 @@
             label5.TabIndex = 11;
             label5.Text = "Посилання (Zoom/Teams):";
             // 
+            // dgvAllLessons
+            // 
+            dgvAllLessons.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAllLessons.Location = new Point(317, 30);
+            dgvAllLessons.Name = "dgvAllLessons";
+            dgvAllLessons.Size = new Size(240, 219);
+            dgvAllLessons.TabIndex = 12;
+            // 
+            // btnDeleteInForm
+            // 
+            btnDeleteInForm.Location = new Point(317, 276);
+            btnDeleteInForm.Name = "btnDeleteInForm";
+            btnDeleteInForm.Size = new Size(75, 23);
+            btnDeleteInForm.TabIndex = 13;
+            btnDeleteInForm.Text = "Видалити";
+            btnDeleteInForm.UseVisualStyleBackColor = true;
+            btnDeleteInForm.Click += btnDeleteInForm_Click;
+            // 
             // AddLessonForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnDeleteInForm);
+            Controls.Add(dgvAllLessons);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -164,6 +186,7 @@
             Controls.Add(txtSubjectName);
             Name = "AddLessonForm";
             Text = "Додати нове заняття";
+            ((System.ComponentModel.ISupportInitialize)dgvAllLessons).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -182,5 +205,7 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private DataGridView dgvAllLessons;
+        private Button btnDeleteInForm;
     }
 }
