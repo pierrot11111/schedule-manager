@@ -47,8 +47,14 @@ namespace pr1
         }
 
         // Прив'яжи цей метод до події CheckedChanged обох RadioButton на головній формі
-        private void rbWeek_CheckedChanged(object sender, EventArgs e) => UpdateAllGrids();
-
+        private void rbWeek_CheckedChanged(object sender, EventArgs e)
+        {
+            // Перевіряємо, чи RadioButton став активним (Checked)
+            if (((RadioButton)sender).Checked)
+            {
+                UpdateAllGrids(); // Оновлюємо 5 таблиць згідно з вибраним тижнем
+            }
+        }
         private void btnOpenAddForm_Click(object sender, EventArgs e)
         {
             using (var addForm = new AddLessonForm(_repository))

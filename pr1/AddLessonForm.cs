@@ -28,10 +28,22 @@ namespace pr1
         private void dtpLessonTime_ValueChanged(object sender, EventArgs e)
         {
             var cal = System.Globalization.CultureInfo.CurrentCulture.Calendar;
-            int weekOfYear = cal.GetWeekOfYear(dtpLessonTime.Value, System.Globalization.CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
 
-            // Виставляємо 1 або 2 тиждень автоматично
-            cmbWeek.SelectedIndex = (weekOfYear % 2 == 0) ? 2 : 1;
+            // Отримуємо номер тижня року
+            int weekOfYear = cal.GetWeekOfYear(
+                dtpLessonTime.Value,
+                System.Globalization.CalendarWeekRule.FirstFourDayWeek,
+                DayOfWeek.Monday);
+
+            // Логіка: непарний тиждень року = 1 тиждень, парний = 2 тиждень
+            if (weekOfYear % 2 != 0)
+            {
+                cmbWeek.SelectedIndex = 1; // "1 тиждень" у твоєму списку
+            }
+            else
+            {
+                cmbWeek.SelectedIndex = 2; // "2 тиждень" у твоєму списку
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -68,7 +80,8 @@ namespace pr1
             dgvAllLessons.Columns.Add(new DataGridViewTextBoxColumn { Name = "SubjCol", HeaderText = "Предмет", Width = 120 });
             dgvAllLessons.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "WeekNumber", HeaderText = "Т", Width = 30 });
 
-            dgvAllLessons.CellFormatting += (s, e) => {
+            dgvAllLessons.CellFormatting += (s, e) =>
+            {
                 if (dgvAllLessons.Columns[e.ColumnIndex].Name == "SubjCol" && dgvAllLessons.Rows[e.RowIndex].DataBoundItem is Lesson l)
                     e.Value = l.CurrentSubject?.Name;
             };
@@ -83,6 +96,11 @@ namespace pr1
                 _repo.Delete(selected);
                 UpdateMiniGrid();
             }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

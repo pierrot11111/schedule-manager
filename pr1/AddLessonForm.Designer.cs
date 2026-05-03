@@ -155,7 +155,7 @@
             dgvAllLessons.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAllLessons.Location = new Point(317, 30);
             dgvAllLessons.Name = "dgvAllLessons";
-            dgvAllLessons.Size = new Size(240, 249);
+            dgvAllLessons.Size = new Size(385, 249);
             dgvAllLessons.TabIndex = 12;
             // 
             // btnDeleteInForm
@@ -184,15 +184,17 @@
             cmbWeek.Name = "cmbWeek";
             cmbWeek.Size = new Size(200, 23);
             cmbWeek.TabIndex = 15;
+            cmbWeek.ValueMemberChanged += dtpLessonTime_ValueChanged;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Location = new Point(12, 149);
             label7.Name = "label7";
-            label7.Size = new Size(169, 15);
+            label7.Size = new Size(58, 15);
             label7.TabIndex = 16;
-            label7.Text = "Тиждень (визначається авто):";
+            label7.Text = "Тиждень:";
+            label7.Click += label7_Click;
             // 
             // AddLessonForm
             // 

@@ -154,22 +154,24 @@
             rbWeek1.AutoSize = true;
             rbWeek1.Location = new Point(654, 40);
             rbWeek1.Name = "rbWeek1";
-            rbWeek1.Size = new Size(94, 19);
+            rbWeek1.Size = new Size(121, 19);
             rbWeek1.TabIndex = 11;
             rbWeek1.TabStop = true;
-            rbWeek1.Text = "radioButton1";
+            rbWeek1.Text = "Перший тиждень";
             rbWeek1.UseVisualStyleBackColor = true;
+            rbWeek1.CheckedChanged += rbWeek_CheckedChanged;
             // 
             // rbWeek2
             // 
             rbWeek2.AutoSize = true;
             rbWeek2.Location = new Point(654, 81);
             rbWeek2.Name = "rbWeek2";
-            rbWeek2.Size = new Size(94, 19);
+            rbWeek2.Size = new Size(114, 19);
             rbWeek2.TabIndex = 12;
             rbWeek2.TabStop = true;
-            rbWeek2.Text = "radioButton2";
+            rbWeek2.Text = "Другий тиждень";
             rbWeek2.UseVisualStyleBackColor = true;
+            rbWeek2.CheckedChanged += rbWeek_CheckedChanged;
             // 
             // Form1
             // 

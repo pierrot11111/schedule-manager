@@ -96,6 +96,38 @@
       "Type": 2,
       "ZoomLink": "vxcvxcv",
       "WeekNumber": 2
+    },
+    {
+      "$type": "pr1.Lesson, pr1",
+      "Time": "2026-05-22T01:15:16.573",
+      "CurrentSubject": {
+        "$type": "pr1.Subject, pr1",
+        "Name": "sdfdfsdfsdf",
+        "Lecturer": {
+          "$type": "pr1.Teacher, pr1",
+          "FullName": "ssssss",
+          "Email": ""
+        }
+      },
+      "Type": 2,
+      "ZoomLink": "fssdf",
+      "WeekNumber": 1
+    },
+    {
+      "$type": "pr1.Lesson, pr1",
+      "Time": "2026-05-05T01:16:20.909",
+      "CurrentSubject": {
+        "$type": "pr1.Subject, pr1",
+        "Name": "dddddddd",
+        "Lecturer": {
+          "$type": "pr1.Teacher, pr1",
+          "FullName": "dddddddd",
+          "Email": ""
+        }
+      },
+      "Type": 0,
+      "ZoomLink": "sdfsdfsdfsd",
+      "WeekNumber": 0
     }
   ]
 }
