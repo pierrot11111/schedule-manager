@@ -11,10 +11,7 @@ namespace pr1
         private List<Lesson> _lessons = new List<Lesson>();
         private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "schedule.json");
 
-        public LessonRepository()
-        {
-            LoadData();
-        }
+        public LessonRepository() => LoadData();
 
         public void Add(Lesson item)
         {
@@ -24,7 +21,6 @@ namespace pr1
 
         public bool Delete(Lesson item)
         {
-            // Пошук за часом та посиланням для точного видалення
             var found = _lessons.FirstOrDefault(l => l.Time == item.Time && l.ZoomLink == item.ZoomLink);
             if (found != null)
             {
@@ -35,42 +31,30 @@ namespace pr1
             return false;
         }
 
+        // Рефакторинг: повертаємо відсортований список через LINQ
+        public IEnumerable<Lesson> GetAll() => _lessons.OrderBy(l => l.Time).ToList();
+
         public Lesson Find(Predicate<Lesson> predicate) => _lessons.Find(predicate);
-        public IEnumerable<Lesson> GetAll() => _lessons;
 
         private void SaveData()
         {
             try
             {
                 var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented };
-                string json = JsonConvert.SerializeObject(_lessons, settings);
-                File.WriteAllText(_filePath, json);
+                File.WriteAllText(_filePath, JsonConvert.SerializeObject(_lessons, settings));
             }
-            catch (IOException ex)
-            {
-                System.Windows.Forms.MessageBox.Show($"Помилка доступу до файлу: {ex.Message}", "Помилка запису", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show($"Непередбачувана помилка при збереженні: {ex.Message}");
-            }
+            catch (Exception ex) { System.Windows.Forms.MessageBox.Show("Помилка збереження: " + ex.Message); }
         }
 
         private void LoadData()
         {
             if (!File.Exists(_filePath)) return;
-
             try
             {
-                string json = File.ReadAllText(_filePath);
                 var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-                _lessons = JsonConvert.DeserializeObject<List<Lesson>>(json, settings) ?? new List<Lesson>();
+                _lessons = JsonConvert.DeserializeObject<List<Lesson>>(File.ReadAllText(_filePath), settings) ?? new List<Lesson>();
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show($"Не вдалося завантажити розклад: {ex.Message}", "Помилка файлу", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
-                _lessons = new List<Lesson>();
-            }
+            catch { _lessons = new List<Lesson>(); }
         }
     }
 }

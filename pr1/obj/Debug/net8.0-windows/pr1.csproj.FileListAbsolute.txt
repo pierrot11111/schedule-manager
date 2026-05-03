@@ -18,3 +18,4 @@ C:\Users\mrfro\Desktop\New folder\прога2\код\pr1\pr1\obj\Debug\net8.0-wi
 C:\Users\mrfro\Desktop\New folder\прога2\код\pr1\pr1\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
 C:\Users\mrfro\Desktop\New folder\прога2\код\pr1\pr1\obj\Debug\net8.0-windows\pr1.csproj.AssemblyReference.cache
 C:\Users\mrfro\Desktop\New folder\прога2\код\pr1\pr1\obj\Debug\net8.0-windows\pr1.csproj.Up2Date
+C:\Users\mrfro\Desktop\New folder\прога2\код\pr1\pr1\obj\Debug\net8.0-windows\pr1.AddLessonForm.resources
