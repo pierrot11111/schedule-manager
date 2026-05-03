@@ -42,6 +42,9 @@
             label5 = new Label();
             dgvAllLessons = new DataGridView();
             btnDeleteInForm = new Button();
+            label6 = new Label();
+            cmbWeek = new ComboBox();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvAllLessons).BeginInit();
             SuspendLayout();
             // 
@@ -62,21 +65,21 @@
             // cmbLessonType
             // 
             cmbLessonType.FormattingEnabled = true;
-            cmbLessonType.Location = new Point(12, 126);
+            cmbLessonType.Location = new Point(12, 212);
             cmbLessonType.Name = "cmbLessonType";
             cmbLessonType.Size = new Size(200, 23);
             cmbLessonType.TabIndex = 2;
             // 
             // dtpLessonTime
             // 
-            dtpLessonTime.Location = new Point(12, 173);
+            dtpLessonTime.Location = new Point(12, 123);
             dtpLessonTime.Name = "dtpLessonTime";
             dtpLessonTime.Size = new Size(200, 23);
             dtpLessonTime.TabIndex = 3;
             // 
             // txtLink
             // 
-            txtLink.Location = new Point(12, 226);
+            txtLink.Location = new Point(12, 256);
             txtLink.Name = "txtLink";
             txtLink.Size = new Size(200, 23);
             txtLink.TabIndex = 4;
@@ -84,7 +87,7 @@
             // btnSave
             // 
             btnSave.DialogResult = DialogResult.OK;
-            btnSave.Location = new Point(12, 276);
+            btnSave.Location = new Point(12, 285);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(75, 23);
             btnSave.TabIndex = 5;
@@ -95,7 +98,7 @@
             // btnClose
             // 
             btnClose.DialogResult = DialogResult.Cancel;
-            btnClose.Location = new Point(137, 276);
+            btnClose.Location = new Point(137, 285);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(75, 23);
             btnClose.TabIndex = 6;
@@ -123,7 +126,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 108);
+            label3.Location = new Point(12, 194);
             label3.Name = "label3";
             label3.Size = new Size(74, 15);
             label3.TabIndex = 9;
@@ -132,7 +135,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 155);
+            label4.Location = new Point(12, 105);
             label4.Name = "label4";
             label4.Size = new Size(71, 15);
             label4.TabIndex = 10;
@@ -141,7 +144,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(12, 208);
+            label5.Location = new Point(12, 238);
             label5.Name = "label5";
             label5.Size = new Size(154, 15);
             label5.TabIndex = 11;
@@ -152,12 +155,12 @@
             dgvAllLessons.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAllLessons.Location = new Point(317, 30);
             dgvAllLessons.Name = "dgvAllLessons";
-            dgvAllLessons.Size = new Size(240, 219);
+            dgvAllLessons.Size = new Size(240, 249);
             dgvAllLessons.TabIndex = 12;
             // 
             // btnDeleteInForm
             // 
-            btnDeleteInForm.Location = new Point(317, 276);
+            btnDeleteInForm.Location = new Point(317, 285);
             btnDeleteInForm.Name = "btnDeleteInForm";
             btnDeleteInForm.Size = new Size(75, 23);
             btnDeleteInForm.TabIndex = 13;
@@ -165,11 +168,40 @@
             btnDeleteInForm.UseVisualStyleBackColor = true;
             btnDeleteInForm.Click += btnDeleteInForm_Click;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(317, 12);
+            label6.Name = "label6";
+            label6.Size = new Size(53, 15);
+            label6.TabIndex = 14;
+            label6.Text = "Всі пари";
+            // 
+            // cmbWeek
+            // 
+            cmbWeek.FormattingEnabled = true;
+            cmbWeek.Location = new Point(12, 167);
+            cmbWeek.Name = "cmbWeek";
+            cmbWeek.Size = new Size(200, 23);
+            cmbWeek.TabIndex = 15;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(12, 149);
+            label7.Name = "label7";
+            label7.Size = new Size(169, 15);
+            label7.TabIndex = 16;
+            label7.Text = "Тиждень (визначається авто):";
+            // 
             // AddLessonForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label7);
+            Controls.Add(cmbWeek);
+            Controls.Add(label6);
             Controls.Add(btnDeleteInForm);
             Controls.Add(dgvAllLessons);
             Controls.Add(label5);
@@ -207,5 +239,8 @@
         private Label label5;
         private DataGridView dgvAllLessons;
         private Button btnDeleteInForm;
+        private Label label6;
+        private ComboBox cmbWeek;
+        private Label label7;
     }
 }

@@ -14,7 +14,8 @@
         }
       },
       "Type": 0,
-      "ZoomLink": "иии"
+      "ZoomLink": "иии",
+      "WeekNumber": 0
     },
     {
       "$type": "pr1.Lesson, pr1",
@@ -29,7 +30,8 @@
         }
       },
       "Type": 2,
-      "ZoomLink": "іваіііі"
+      "ZoomLink": "іваіііі",
+      "WeekNumber": 0
     },
     {
       "$type": "pr1.Lesson, pr1",
@@ -44,7 +46,8 @@
         }
       },
       "Type": 1,
-      "ZoomLink": "вапвапвапвап"
+      "ZoomLink": "вапвапвапвап",
+      "WeekNumber": 0
     },
     {
       "$type": "pr1.Lesson, pr1",
@@ -59,7 +62,8 @@
         }
       },
       "Type": 2,
-      "ZoomLink": "іваіваіваі"
+      "ZoomLink": "іваіваіваі",
+      "WeekNumber": 0
     },
     {
       "$type": "pr1.Lesson, pr1",
@@ -74,7 +78,24 @@
         }
       },
       "Type": 2,
-      "ZoomLink": "чмчсмч"
+      "ZoomLink": "чмчсмч",
+      "WeekNumber": 0
+    },
+    {
+      "$type": "pr1.Lesson, pr1",
+      "Time": "2026-05-12T01:04:05.7",
+      "CurrentSubject": {
+        "$type": "pr1.Subject, pr1",
+        "Name": "vsvxcvxcvx",
+        "Lecturer": {
+          "$type": "pr1.Teacher, pr1",
+          "FullName": "xcvxcvxc",
+          "Email": ""
+        }
+      },
+      "Type": 2,
+      "ZoomLink": "vxcvxcv",
+      "WeekNumber": 2
     }
   ]
 }

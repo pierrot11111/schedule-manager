@@ -39,6 +39,8 @@
             dgvThursday = new DataGridView();
             label5 = new Label();
             dgvFriday = new DataGridView();
+            rbWeek1 = new RadioButton();
+            rbWeek2 = new RadioButton();
             ((System.ComponentModel.ISupportInitialize)dgvMonday).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvTuesday).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvWednesday).BeginInit();
@@ -54,17 +56,17 @@
             dgvMonday.Name = "dgvMonday";
             dgvMonday.Size = new Size(603, 150);
             dgvMonday.TabIndex = 0;
-            dgvMonday.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgv_CellFormatting);
+            dgvMonday.CellFormatting += dgv_CellFormatting;
             // 
             // btnOpenAddForm
             // 
-            this.btnOpenAddForm.Location = new Point(650, 12);
-            this.btnOpenAddForm.Name = "btnOpenAddForm";
-            this.btnOpenAddForm.Size = new Size(75, 23);
-            this.btnOpenAddForm.TabIndex = 1;
-            this.btnOpenAddForm.Text = "Додати заняття";
-            this.btnOpenAddForm.UseVisualStyleBackColor = true;
-            this.btnOpenAddForm.Click += new System.EventHandler(this.btnOpenAddForm_Click);
+            btnOpenAddForm.Location = new Point(654, 117);
+            btnOpenAddForm.Name = "btnOpenAddForm";
+            btnOpenAddForm.Size = new Size(75, 23);
+            btnOpenAddForm.TabIndex = 1;
+            btnOpenAddForm.Text = "Додати заняття";
+            btnOpenAddForm.UseVisualStyleBackColor = true;
+            btnOpenAddForm.Click += btnOpenAddForm_Click;
             // 
             // label1
             // 
@@ -147,11 +149,35 @@
             dgvFriday.Size = new Size(603, 150);
             dgvFriday.TabIndex = 9;
             // 
+            // rbWeek1
+            // 
+            rbWeek1.AutoSize = true;
+            rbWeek1.Location = new Point(654, 40);
+            rbWeek1.Name = "rbWeek1";
+            rbWeek1.Size = new Size(94, 19);
+            rbWeek1.TabIndex = 11;
+            rbWeek1.TabStop = true;
+            rbWeek1.Text = "radioButton1";
+            rbWeek1.UseVisualStyleBackColor = true;
+            // 
+            // rbWeek2
+            // 
+            rbWeek2.AutoSize = true;
+            rbWeek2.Location = new Point(654, 81);
+            rbWeek2.Name = "rbWeek2";
+            rbWeek2.Size = new Size(94, 19);
+            rbWeek2.TabIndex = 12;
+            rbWeek2.TabStop = true;
+            rbWeek2.Text = "radioButton2";
+            rbWeek2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 887);
+            Controls.Add(rbWeek2);
+            Controls.Add(rbWeek1);
             Controls.Add(label5);
             Controls.Add(dgvFriday);
             Controls.Add(label4);
@@ -187,5 +213,7 @@
         private DataGridView dgvThursday;
         private Label label5;
         private DataGridView dgvFriday;
+        private RadioButton rbWeek1;
+        private RadioButton rbWeek2;
     }
 }

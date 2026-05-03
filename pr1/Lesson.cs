@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace pr1
 {
@@ -12,13 +8,15 @@ namespace pr1
         public Subject CurrentSubject { get; set; }
         public LessonType Type { get; set; }
         public string ZoomLink { get; set; }
+        public int WeekNumber { get; set; }
 
-        public Lesson(DateTime time, Subject subject, LessonType type, string link)
+        public Lesson(DateTime time, Subject subject, LessonType type, string link, int week = 0)
         {
             Time = time;
             CurrentSubject = subject;
             Type = type;
             ZoomLink = link;
+            WeekNumber = week;
         }
     }
 }
