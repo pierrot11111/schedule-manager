@@ -9,7 +9,6 @@ namespace pr1
     public class LessonRepository : IRepository<Lesson>
     {
         private List<Lesson> _lessons = new List<Lesson>();
-        // Використовуємо AppDomain, щоб файл завжди був в папці з .exe
         private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "schedule.json");
 
         public LessonRepository()
@@ -25,10 +24,11 @@ namespace pr1
 
         public bool Delete(Lesson item)
         {
-            var lessonToRemove = _lessons.FirstOrDefault(l => l.Time == item.Time && l.ZoomLink == item.ZoomLink);
-            if (lessonToRemove != null)
+            // Пошук за часом та посиланням для точного видалення
+            var found = _lessons.FirstOrDefault(l => l.Time == item.Time && l.ZoomLink == item.ZoomLink);
+            if (found != null)
             {
-                _lessons.Remove(lessonToRemove);
+                _lessons.Remove(found);
                 SaveData();
                 return true;
             }
@@ -36,43 +36,40 @@ namespace pr1
         }
 
         public Lesson Find(Predicate<Lesson> predicate) => _lessons.Find(predicate);
-
         public IEnumerable<Lesson> GetAll() => _lessons;
 
         private void SaveData()
         {
             try
             {
-                var settings = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All, // Зберігає інформацію про класи
-                    Formatting = Formatting.Indented
-                };
+                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented };
                 string json = JsonConvert.SerializeObject(_lessons, settings);
                 File.WriteAllText(_filePath, json);
             }
+            catch (IOException ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"Помилка доступу до файлу: {ex.Message}", "Помилка запису", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Помилка збереження: " + ex.Message);
+                System.Windows.Forms.MessageBox.Show($"Непередбачувана помилка при збереженні: {ex.Message}");
             }
         }
 
         private void LoadData()
         {
-            if (File.Exists(_filePath))
+            if (!File.Exists(_filePath)) return;
+
+            try
             {
-                try
-                {
-                    string json = File.ReadAllText(_filePath);
-                    var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-                    var data = JsonConvert.DeserializeObject<List<Lesson>>(json, settings);
-                    if (data != null) _lessons = data;
-                }
-                catch (Exception ex)
-                {
-                    _lessons = new List<Lesson>();
-                    System.Windows.Forms.MessageBox.Show("Помилка завантаження: " + ex.Message);
-                }
+                string json = File.ReadAllText(_filePath);
+                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+                _lessons = JsonConvert.DeserializeObject<List<Lesson>>(json, settings) ?? new List<Lesson>();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"Не вдалося завантажити розклад: {ex.Message}", "Помилка файлу", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                _lessons = new List<Lesson>();
             }
         }
     }

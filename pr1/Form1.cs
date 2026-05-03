@@ -2,131 +2,114 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace pr1
 {
     public partial class Form1 : Form
     {
-        // Створюємо репозиторій для роботи з даними (ПР №3)
         private readonly LessonRepository _repository = new LessonRepository();
+        private ErrorProvider errorProvider = new ErrorProvider();
 
         public Form1()
         {
             InitializeComponent();
             SetupGrid();
 
-            // Заповнюємо випадаючий список
+            // Заповнення списку типів занять
             cmbLessonType.Items.AddRange(Enum.GetNames(typeof(LessonType)));
 
-            // ОНОВЛЮЄМО ТАБЛИЦЮ ВІДРАЗУ ПРИ ЗАПУСКУ
+            // Завантаження даних у таблицю при старті
             UpdateGrid();
         }
 
-        // Налаштування зовнішнього вигляду таблиці
         private void SetupGrid()
         {
             dgvLessons.AutoGenerateColumns = false;
             dgvLessons.Columns.Clear();
 
-            // 1. Стовпець для Часу
-            dgvLessons.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Time",
-                HeaderText = "Час",
-                Width = 100
-            });
-
-            // 2. Стовпець для Предмета (Назва береться через CellFormatting)
-            dgvLessons.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "SubjectCol",
-                HeaderText = "Назва предмета",
-                Width = 150
-            });
-
-            // 3. Стовпець для Викладача (ПІБ береться через CellFormatting)
-            dgvLessons.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "TeacherCol",
-                HeaderText = "Викладач",
-                Width = 150
-            });
-
-            // 4. Тип пари
-            dgvLessons.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Type",
-                HeaderText = "Тип",
-                Width = 80
-            });
-
-            // 5. Посилання (на всю ширину)
-            dgvLessons.Columns.Add(new DataGridViewLinkColumn
-            {
-                DataPropertyName = "ZoomLink",
-                HeaderText = "Посилання",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            });
+            dgvLessons.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Time", HeaderText = "Час", Width = 110 });
+            dgvLessons.Columns.Add(new DataGridViewTextBoxColumn { Name = "SubjectCol", HeaderText = "Назва предмета", Width = 150 });
+            dgvLessons.Columns.Add(new DataGridViewTextBoxColumn { Name = "TeacherCol", HeaderText = "Викладач", Width = 150 });
+            dgvLessons.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Type", HeaderText = "Тип", Width = 80 });
+            dgvLessons.Columns.Add(new DataGridViewLinkColumn { DataPropertyName = "ZoomLink", HeaderText = "Посилання", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill });
         }
 
-        // Відображення тексту всередині вкладених об'єктів (ПР №4)
-        private void dgvLessons_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            var lesson = dgvLessons.Rows[e.RowIndex].DataBoundItem as Lesson;
-            if (lesson == null) return;
-
-            // Виводимо назву предмета
-            if (dgvLessons.Columns[e.ColumnIndex].Name == "SubjectCol")
-            {
-                e.Value = lesson.CurrentSubject?.Name;
-                e.FormattingApplied = true;
-            }
-
-            // Виводимо ПІБ викладача
-            if (dgvLessons.Columns[e.ColumnIndex].Name == "TeacherCol")
-            {
-                e.Value = lesson.CurrentSubject?.Lecturer?.FullName;
-                e.FormattingApplied = true;
-            }
-        }
-
-        // Кнопка ДОДАТИ (ПР №4: Операція Create)
+        // Кнопка ДОДАТИ з валідацією (ПР №6)
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtSubjectName.Text) || string.IsNullOrWhiteSpace(txtTeacherName.Text))
+            errorProvider.Clear(); // Скидаємо старі помилки
+
+            // 1. Валідація: Назва предмета
+            if (string.IsNullOrWhiteSpace(txtSubjectName.Text))
             {
-                MessageBox.Show("Будь ласка, заповніть назву предмета та викладача.");
+                errorProvider.SetError(txtSubjectName, "Назва предмета не може бути порожньою!");
                 return;
             }
 
-            // Створюємо об'єкти (Логіка ПР №2)
-            var teacher = new Teacher(txtTeacherName.Text, string.Empty);
-            var subject = new Subject(txtSubjectName.Text, teacher);
+            // 2. Валідація: Викладач
+            if (string.IsNullOrWhiteSpace(txtTeacherName.Text))
+            {
+                errorProvider.SetError(txtTeacherName, "Вкажіть ПІБ викладача!");
+                return;
+            }
 
-            Enum.TryParse(cmbLessonType.Text, out LessonType type);
+            // 3. Валідація: Посилання (Regex)
+            if (!string.IsNullOrEmpty(txtLink.Text) && !Regex.IsMatch(txtLink.Text, @"^https?://"))
+            {
+                errorProvider.SetError(txtLink, "Посилання має починатися з http:// або https://");
+                return;
+            }
 
-            // Створюємо заняття
-            var newLesson = new Lesson(dtpLessonTime.Value, subject, type, txtLink.Text);
+            // 4. Валідація: Вибір типу пари
+            if (cmbLessonType.SelectedIndex == -1)
+            {
+                MessageBox.Show("Будь ласка, оберіть тип пари зі списку.", "Валідація", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            // Зберігаємо в репозиторій (ПР №3)
-            _repository.Add(newLesson);
+            try
+            {
+                var teacher = new Teacher(txtTeacherName.Text, string.Empty);
+                var subject = new Subject(txtSubjectName.Text, teacher);
+                Enum.TryParse(cmbLessonType.Text, out LessonType type);
 
-            // Оновлюємо інтерфейс
-            UpdateGrid();
-            ClearFields();
+                var newLesson = new Lesson(dtpLessonTime.Value, subject, type, txtLink.Text);
+
+                _repository.Add(newLesson);
+                UpdateGrid();
+                ClearFields();
+
+                MessageBox.Show("Заняття успішно додано до розкладу!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Сталася помилка при додаванні: {ex.Message}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        // Кнопка ВИДАЛИТИ (ПР №4: Операція Delete)
+        // Кнопка ВИДАЛИТИ з обробкою виключень (ПР №6)
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dgvLessons.CurrentRow?.DataBoundItem is Lesson selectedLesson)
+            try
             {
-                _repository.Delete(selectedLesson);
-                UpdateGrid();
+                if (dgvLessons.CurrentRow?.DataBoundItem is Lesson selectedLesson)
+                {
+                    var result = MessageBox.Show("Видалити вибране заняття?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        _repository.Delete(selectedLesson);
+                        UpdateGrid();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Спочатку виберіть рядок у таблиці.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Виберіть рядок для видалення.");
+                MessageBox.Show($"Помилка при видаленні: {ex.Message}");
             }
         }
 
@@ -143,6 +126,23 @@ namespace pr1
             txtLink.Clear();
             cmbLessonType.SelectedIndex = -1;
             dtpLessonTime.Value = DateTime.Now;
+        }
+
+        private void dgvLessons_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvLessons.Rows[e.RowIndex].DataBoundItem is Lesson lesson)
+            {
+                if (dgvLessons.Columns[e.ColumnIndex].Name == "SubjectCol")
+                {
+                    e.Value = lesson.CurrentSubject?.Name;
+                    e.FormattingApplied = true;
+                }
+                if (dgvLessons.Columns[e.ColumnIndex].Name == "TeacherCol")
+                {
+                    e.Value = lesson.CurrentSubject?.Lecturer?.FullName;
+                    e.FormattingApplied = true;
+                }
+            }
         }
     }
 }

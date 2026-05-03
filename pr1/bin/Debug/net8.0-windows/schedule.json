@@ -1,4 +1,35 @@
 {
   "$type": "System.Collections.Generic.List`1[[pr1.Lesson, pr1]], System.Private.CoreLib",
-  "$values": []
+  "$values": [
+    {
+      "$type": "pr1.Lesson, pr1",
+      "Time": "2026-04-27T00:15:31.6935525+03:00",
+      "CurrentSubject": {
+        "$type": "pr1.Subject, pr1",
+        "Name": "фффф",
+        "Lecturer": {
+          "$type": "pr1.Teacher, pr1",
+          "FullName": "іііііі",
+          "Email": ""
+        }
+      },
+      "Type": 2,
+      "ZoomLink": "ввввв"
+    },
+    {
+      "$type": "pr1.Lesson, pr1",
+      "Time": "2026-04-27T00:15:37.9582069+03:00",
+      "CurrentSubject": {
+        "$type": "pr1.Subject, pr1",
+        "Name": "аааааааа",
+        "Lecturer": {
+          "$type": "pr1.Teacher, pr1",
+          "FullName": "ппппппп",
+          "Email": ""
+        }
+      },
+      "Type": 0,
+      "ZoomLink": "иии"
+    }
+  ]
 }
